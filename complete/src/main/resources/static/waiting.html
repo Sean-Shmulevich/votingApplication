@@ -12,6 +12,7 @@
         //when you page and come back this code will be executed and it allows for the question to be correct even if the user
         //goes to like check instagram or something after the question has already been posted
         document.onvisibilitychange = async function() {
+            //i dont know or think i need this re-load.
             window.location.reload();
             if (document.visibilityState === 'hidden') {
                 let q = await (await fetch("/getProjectNames")).json();
@@ -30,6 +31,7 @@
         let q = await (await fetch("/getProjectNames")).json();
             let currentTime = q["questionNumber"];
             if(currentTime !== -1 && localStorage.getItem(`user-voted-${q["content"]}`) !== "true"){
+                window.location.reload();
                 localStorage.setItem('currentQuestion', q["content"]);
                 localStorage.setItem('currentTime', q["questionNumber"]);
 
