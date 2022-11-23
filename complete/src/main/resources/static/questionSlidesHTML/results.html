@@ -34,11 +34,10 @@
             document.getElementById("send1").id = "send"+currQ;
             //add a listenerr for the current name and question.
             $( "#send"+currQ ).click(function() { sendName(`${currQ}`); document.getElementById("send"+currQ).style.display = "none"; });
-
+            $( "#qOption0"+currQ ).click(function() { sessionStorage.clear(); });
+            $( "#qOption1"+currQ ).click(function() { sessionStorage.clear(); });
             //set the the preview videos.
 
-
-            sessionStorage.clear();
         });
     </script>
 </head>
