@@ -46,6 +46,7 @@
             //using an array would work too because this map is basically like an array but it starts at 1 which would be less clear in the code i think.
             document.querySelector("#questionText").innerHTML = questionMap[`q${localStorage.getItem('currentQuestion')}`]
         }
+        //sets the current title to a template string with the current question number from local storage.
         function setQuestionTitle(){
             let pageTitle = document.querySelector('h1');
             let questionNumber = localStorage.getItem('currentQuestion');
@@ -70,8 +71,11 @@
         window.onload = async function () {
             setQuestionTitle();
             setQuestionText();
+
+            //fetch the current time before loading the page just to have a more legit time.
             let q = await (await fetch("/getProjectNames")).json();
             let currentTime = q["questionNumber"];
+
             // console.log(localStorage.getItem(`user-voted-${q["content"]}`));
                 localStorage.setItem('currentQuestion', q["content"]);
                 localStorage.setItem('currentTime', q["questionNumber"]);

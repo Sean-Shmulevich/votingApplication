@@ -1,5 +1,6 @@
 var stompClient = null;
 
+//something from the tutorial code not exaactly sure what it does.
 function setConnected(connected) {
     $("#connect").prop("disabled", connected);
     $("#disconnect").prop("disabled", !connected);
@@ -15,19 +16,22 @@ function setConnected(connected) {
 let numA = 0;
 let numB = 0;
 
+//server to user socket connection
+//admin controls posts to the sendResponce which the user is listening to. 
 function connect() {
     var socket = new SockJS('/gs-guide-websocket');
     stompClient = Stomp.over(socket);
     stompClient.connect({}, function (frame) {
         setConnected(true);
         // console.log('Connected: ' + frame);
+        //recieves many responses 100+ per question asked
         stompClient.subscribe('/topic/sendResponse', function (greeting) {
             // the clients page should change when this is recieved.
             // client button is also a socket to the server side. 
             // numA = 0;
             // numB = 0;
             // console.log(JSON.parse(greeting.body).content);
-            showGreeting(JSON.parse(greeting.body));
+            showGraph(JSON.parse(greeting.body));
         });
     });
 }
@@ -46,8 +50,12 @@ function sendName(val) {
     stompClient.send("/app/hello", {}, JSON.stringify({'name': val}));
 
     const yourFunction = async () => {
+        //inital post requests
         makePostCurrQ(val, 30);
         // await setTimeout(() => { makePostCurrQ(val, 30); }, 5000);
+        // ! kinda bad code here these should be removed when the button is clicked again.
+        //sends 16x post requests per question asked to keep track of the time this should be done on the backend it would be way more clean and accurate
+        //DONT try to send another question before 30 seconds is done. 
         await setTimeout(() => { makePostCurrQ(val, 28); }, 2000);
         await setTimeout(() => { makePostCurrQ(val, 26); }, 4000);
         await setTimeout(() => { makePostCurrQ(val, 24); }, 6000);
@@ -73,24 +81,24 @@ function makePostCurrQ(val, qTime){
     const data = { 'name': val, "questionNumber": qTime };
 
     fetch('/setQuestion', { 
-      method: 'POST', // or 'PUT'
-      headers: {
+        method: 'POST', // or 'PUT'
+        headers: {
         'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(data),
+        },
+        body: JSON.stringify(data),
     })
-      .then((response) => response.json())
-      .then((data) => {
+        .then((response) => response.json())
+        .then((data) => {
         // console.log('Success:', data);
-      })
-      .catch((error) => {
+        })
+        .catch((error) => {
         console.error('Error:', error);
-      });
+        });
 }
 
-function showGreeting(message) {
+function showGraph(message) {
     // console.log(message["questionNumber"]);
-    console.log(numA, numB);
+    // console.log(numA, numB);
     if(message["content"] === 'A'){
         numA++;
     }
@@ -98,7 +106,8 @@ function showGreeting(message) {
         numB++;
     }
 
-
+    //svg graph image added right into the dom. 100% votes for a should be the full size of the viewport maybe a little less
+    //that why we have 2.4 its calculated to make the step size bigger. 
     let graphImage = `<!-- sample rectangle -->
     <!-- sample rectangle -->
     <svg width="350" height="300" viewBox="0 0 350 300"xmlns="http://www.w3.org/2000/svg">
@@ -113,7 +122,7 @@ function showGreeting(message) {
         <text x="80" y="246" style="fill:white;font: bold 25px Verdana,Geneva,sans-serif; ">${numA}</text>
         <text x="250" y="246" style="fill:white;font: bold 25px Verdana,Geneva,sans-serif; ">${numB}</text>
     </svg>`;
-
+    //add graph image to correct responce graph.
     document.getElementById(`sendQuestion${message["questionNumber"]}`).innerHTML =("<tr><td>" + graphImage + "</td></tr>")
     // $(`#sendQuestion${message["questionNumber"]}`) = ("<tr><td>" + graphImage + "</td></tr>");
 }
@@ -125,6 +134,9 @@ $(function () {
     connect();
     // $( "#connect" ).click(function() { connect(); });
     // $( "#disconnect" ).click(function() { disconnect(); });
+
+    // send button handlers for all of the questions. 
+    // to add more just add here and in the admin .html add another secuential ID.
     $( "#send1" ).click(function() { sendName("1"); });
     $( "#send2" ).click(function() { sendName("2"); });
     $( "#send3" ).click(function() { sendName("3"); });

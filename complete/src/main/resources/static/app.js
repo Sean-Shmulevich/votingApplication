@@ -5,24 +5,7 @@ async function setConnected(connected) {
     $("#disconnect").prop("disabled", !connected);
     if (connected) {
         $("#conversation").show();
-        // localStorage.setItem('currentQuestion', questionNumber);
-        //this is generally where my logic should go try to fetch a stateful endpoint of the current question somehow
-        //shouldnt be to hard. good solution easy one
-    //     var path = window.location.pathname;
-    //     var page = path.split("/").pop();
-    //     console.log( page );
-    //     let once = true;
-    //     if((page === "index.html" || page === "waiting.html")){
-    //         let q = await (await fetch("/getProjectNames")).json();
-    //         let currentTime = q["questionNumber"];
-    //         if(currentTime !== -1 && localStorage.getItem(`user-voted-${q["content"]}`) === null){
-    //             localStorage.setItem('currentQuestion', q["content"]);
-    //             localStorage.setItem('currentTime', q["questionNumber"]);
-
-    //             window.location.replace(`/question.html`);
-    //         }
-    //         console.log(q);
-    //     }
+        //i dont know when this executed but it executes a bunch of times.
      }
     else {
         $("#conversation").hide();
@@ -30,6 +13,7 @@ async function setConnected(connected) {
     $("#sendQuestion").html("");
 }
 
+//listening for the question to be asked.
 function connect() {
     var socket = new SockJS('/gs-guide-websocket');
     stompClient = Stomp.over(socket);
@@ -44,6 +28,7 @@ function connect() {
             //!BUG the url will change before the question is over if the admin hits the button for another question
             //sending to the url recieved from the server. in realtime with websockets.
             const questionNumber = JSON.parse(greeting.body).content;
+            //move to the question. 
             localStorage.setItem('currentQuestion', questionNumber);
             window.location.replace(`/question.html`);
         });
@@ -58,8 +43,10 @@ function disconnect() {
     console.log("Disconnected");
 }
 
+//send a or b andd the questionNumber to the server admin page. websockets 
 function sendAns(ans) {
     let currQuestion = localStorage.getItem('currentQuestion');
+    //make sure the user hasnt voted on this question yet.
     if(!localStorage.hasOwnProperty(`user-voted-${currQuestion}`)){
         //send the right data do the backend json names map to class names.
         stompClient.send("/app/userSend", {}, JSON.stringify({'name': ans, "questionNumber": currQuestion}));
@@ -68,6 +55,7 @@ function sendAns(ans) {
         window.location.replace("/waiting.html");
     }
     else{
+        //say that the user has already voted.
         document.querySelector("h1").innerHTML = "<span style='color:red'>already VOTED</span>";
         setTimeout(() => { window.location.replace("/waiting.html") }, 1000);
     }
