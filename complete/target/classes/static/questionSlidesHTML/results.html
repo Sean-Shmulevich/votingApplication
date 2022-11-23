@@ -9,7 +9,6 @@
     <script src="/webjars/sockjs-client/sockjs.min.js"></script>
     <script src="/webjars/stomp-websocket/stomp.min.js"></script>
     <script type="text/javascript" src="https://unpkg.com/youtube-background/jquery.youtube-background.min.js"></script>
-    <script src="../js/admin.js"></script>
     <style>
         iframe {
             transition: opacity 500ms ease-in-out;
@@ -28,13 +27,16 @@
 
 
             document.querySelector("#conversation1 > thead > tr > th").innerHTML = "Responses question "+ currQ;
-            document.getElementById("conversation1").id = "send"+currQ;
-            document.getElementById("sendQuestion1").id = "send"+currQ;
-
+            document.getElementById("conversation1").id = "conversation"+currQ;
+            document.getElementById("sendQuestion1").id = "sendQuestion"+currQ;
+            document.getElementById("send1").id = "send"+currQ;
+            //add a listenerr for the current name and question.
+            $( "#send"+currQ ).click(function() { sendName(`${currQ}`); document.getElementById("send"+currQ).style.display = "none"; });
 
             sessionStorage.clear();
         });
     </script>
+    <script src="../js/admin.js"></script>
 </head>
 
 <body>
@@ -60,7 +62,9 @@
                 <tbody id="sendQuestion1">
                 </tbody>
             </table>
-
+            <form class="form-inline">
+                <button id="send1" class="btn btn-default" type="submit">sendQ</button>
+            </form>
         </div>
     </div>
 </body>

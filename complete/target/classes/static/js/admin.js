@@ -138,15 +138,20 @@ $(function () {
 
     // send button handlers for all of the questions. 
     // to add more just add here and in the admin .html add another secuential ID.
-    $( "#send1" ).click(function() { sendName("1"); });
-    $( "#send2" ).click(function() { sendName("2"); });
-    $( "#send3" ).click(function() { sendName("3"); });
-    $( "#send4" ).click(function() { sendName("4"); });
-    $( "#send5" ).click(function() { sendName("5"); });
-    $( "#send6" ).click(function() { sendName("6"); });
-    $( "#send7" ).click(function() { sendName("7"); });
-    $( "#send8" ).click(function() { sendName("8"); });
-    $( "#send9" ).click(function() { sendName("9"); });
-    $( "#send10" ).click(function() { sendName("10"); });
+    let path = window.location.pathname;
+    let page = path.split("/").pop();
+    if(page !== "results.html"){
+        $( "#send1" ).click(function() { sendName("1"); });
+        $( "#send2" ).click(function() { sendName("2"); });
+        $( "#send3" ).click(function() { sendName("3"); });
+        $( "#send4" ).click(function() { sendName("4"); });
+        $( "#send5" ).click(function() { sendName("5"); });
+        $( "#send6" ).click(function() { sendName("6"); });
+        $( "#send7" ).click(function() { sendName("7"); });
+        $( "#send8" ).click(function() { sendName("8"); });
+        $( "#send9" ).click(function() { sendName("9"); });
+        $( "#send10" ).click(function() { sendName("10"); });
+    }
+
 });
 
