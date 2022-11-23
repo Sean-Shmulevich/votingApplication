@@ -74,11 +74,13 @@
 
             //fetch the current time before loading the page just to have a more legit time.
             let q = await (await fetch("/getProjectNames")).json();
-            let currentTime = q["questionNumber"];
+            localStorage.setItem('currentQuestion', q["content"]);
+            localStorage.setItem('currentTime', q["questionNumber"]);
+            if(currentTime !== -1){
+                // set the local storate stuff and go to the current question.
 
-            // console.log(localStorage.getItem(`user-voted-${q["content"]}`));
-                localStorage.setItem('currentQuestion', q["content"]);
-                localStorage.setItem('currentTime', q["questionNumber"]);
+                window.location.replace(`/question.html`);
+            }
             // console.log(q);
             const seconds = localStorage.getItem("currentTime");
             display = document.querySelector('#countdown');
