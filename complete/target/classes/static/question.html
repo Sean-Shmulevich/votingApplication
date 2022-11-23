@@ -67,22 +67,8 @@
             //if you wanted to set the src of an image you would not user innerHTML.
             pageProperty = qMediaArr[arrPos];
         }
-
-        async function fetchCurrentTime() {
-            let q = await (await fetch("/getProjectNames")).json();
-            localStorage.setItem('currentQuestion', q["content"]);
-            localStorage.setItem('currentTime', q["questionNumber"]);
-            if(localStorage.getItem("currentTime") !== -1){
-                // set the local storate stuff and go to the current question.
-                localStorage.setItem('currentTime', q["questionNumber"]);
-                window.location.replace(`/question.html`);
-            }
-            const seconds = localStorage.getItem("currentTime");
-            return seconds;
-        }
         
-        //this is like the main function. 
-        window.addEventListener('load', async function () {
+        window.onload = async function () {
             setQuestionTitle();
             setQuestionText();
 
@@ -95,13 +81,14 @@
                 localStorage.setItem('currentTime', q["questionNumber"]);
                 window.location.replace(`/question.html`);
             }
-            const seconds = fetchCurrentTime();
+            console.log(localStorage.getItem("currentTime"));
+            const seconds = localStorage.getItem("currentTime");
             display = document.querySelector('#countdown');
             startTimer(seconds, display);
             // var path = window.location.pathname;
             // var page = path.split("/").pop();
             // console.log( page );
-        });
+        };
     </script>
 </head>
 <body>
