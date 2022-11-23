@@ -13,9 +13,7 @@
         //goes to like check instagram or something after the question has already been posted
         document.onvisibilitychange = async function() {
             //i dont know or think i need this re-load.
-            window.location.reload();
-            if (document.visibilityState === 'visible') {
-                let q = await (await fetch("/getProjectNames")).json();
+            let q = await (await fetch("/getProjectNames")).json();
             let currentTime = q["questionNumber"];
             localStorage.setItem('currentTime', q["questionNumber"]);
             //only do anything really if the question is currently not been answered and the time is still not -1
@@ -25,6 +23,8 @@
 
                 window.location.replace(`/question.html`);
             }
+            if (document.visibilityState === 'visible') {
+                window.location.reload();
             }
         };
         window.addEventListener('load', (async () => {
