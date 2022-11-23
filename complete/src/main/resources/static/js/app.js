@@ -13,6 +13,7 @@ async function setConnected(connected) {
     $("#sendQuestion").html("");
 }
 
+
 //listening for the question to be asked.
 function connect() {
     var socket = new SockJS('/gs-guide-websocket');
@@ -29,6 +30,10 @@ function connect() {
             //sending to the url recieved from the server. in realtime with websockets.
             const questionNumber = JSON.parse(greeting.body).content;
             //move to the question. 
+            //if the server sends this all the local storage should clear the first time.
+            if(localStorage.getItem('gameStart') === "true"){
+                localStorage.clear();
+            }
             localStorage.setItem('currentQuestion', questionNumber);
             window.location.replace(`/question.html`);
         });
@@ -85,8 +90,8 @@ $(function () {
     //but it would be nice for the admin to have a button to clear the game. this would be a third websocket probably. 
     //or the admin clears it while ppl are using it. 
     //if everybody is using it for a second time everybody thaat is currently connceted to the websocket should have their localStorage data cleared
-    if(page === "index.html"){
-        localStorage.clear();
-    }
+    // if(page === "index.html"){
+    //     localStorage.clear();
+    // }
 });
 

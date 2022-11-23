@@ -1,3 +1,4 @@
+localStorage.setItem("gameStart", true);
 window.addEventListener('load', (async () => {
     //restart the game localStorage.clear(); 
     //!security if the user goes back to this page they will not only be allowed to vote again, but the app will take them to the page to vote again
