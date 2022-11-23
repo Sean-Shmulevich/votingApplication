@@ -12,6 +12,7 @@
             let q = await (await fetch("/getProjectNames")).json();
             let currentTime = q["questionNumber"];
             localStorage.setItem('currentTime', q["questionNumber"]);
+            localStorage.setItem('currentQuestion', q["content"]);
             //only do anything really if the question is currently not been answered and the time is still not -1
             if(currentTime !== -1 && localStorage.getItem(`user-voted-${q["content"]}`) !== "true"){
                 localStorage.setItem('currentQuestion', q["content"]);
