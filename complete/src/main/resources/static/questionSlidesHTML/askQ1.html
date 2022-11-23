@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <title>Hello WebSocket</title>
     <link href="/webjars/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -11,48 +12,52 @@
     <script src="../js/admin.js"></script>
     <script src="/playvideo.js"></script>
     <style>
-        		iframe {
-			transition: opacity 500ms ease-in-out;
-			transition-delay: 250ms;
-		}
+        iframe {
+            transition: opacity 500ms ease-in-out;
+            transition-delay: 250ms;
+        }
     </style>
 </head>
+
 <body>
-<noscript><h2 style="color: #ff0000">Seems your browser doesn't support Javascript! Websocket relies on Javascript being
-    enabled. Please enable
-    Javascript and reload this page!</h2></noscript>
-    <div data-vbg-autoplay="true" data-vbg="https://www.youtube.com/watch?v=eEpEeyqGlxA"></div>
+    <noscript>
+        <h2 style="color: #ff0000">Seems your browser doesn't support Javascript! Websocket relies on Javascript being
+            enabled. Please enable
+            Javascript and reload this page!</h2>
+    </noscript>
+    <div mute-button="true" play-button="true" muted="false" data-vbg-autoplay="true" data-vbg="https://www.youtube.com/watch?v=dQw4w9WgXcQ"></div>
     <script type="text/javascript">
-        jQuery(document).ready(function() {
+        jQuery(document).ready(function () {
             jQuery('[data-vbg]').youtube_background();
         });
     </script>
-<div id="main-content" class="container">
-    <div class="row">
-        <div class="col-md-6">
-            <form class="form-inline">
-                <button id="send1" class="btn btn-default" type="submit">Send Question 1</button>
-            </form>
+    <div id="main-content" class="container" style="position: absolute;bottom:-200px;">
+        <div class="row">
+            <div class="col-md-6">
+                <form class="form-inline">
+                    <button id="send1" class="btn btn-default" type="submit">Send Question 1</button>
+                </form>
+            </div>
+        </div>
+        <div style="display:flex;flex-direction: column;">
+            <a href="askQ2.html">Go to next question. A</a>
+            <a href="askQ2.html">Go to next question. B</a>
         </div>
     </div>
-	<div style="display:flex;flex-direction: column;">
-	    <a href="askQ2.html">Go to next question. A</a>
-    <a href="askQ2.html">Go to next question. B</a>
-</div>
-</div>
-<div class="row">
-    <div class="col-md-12">
-        <table id="conversation1" class="table table-striped">
-            <thead>
-            <tr>
-                <th>Responses question 1</th>
-            </tr>
-            </thead>
-            <tbody id="sendQuestion1">
-            </tbody>
-        </table>
+    <div class="row" style="position: absolute;bottom:-260px;">
+        <div class="col-md-12">
+            <table id="conversation1" class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Responses question 1</th>
+                    </tr>
+                </thead>
+                <tbody id="sendQuestion1">
+                </tbody>
+            </table>
 
+        </div>
     </div>
-</div>
 </body>
+
 </html>
