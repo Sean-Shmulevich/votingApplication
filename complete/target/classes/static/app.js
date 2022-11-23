@@ -30,7 +30,7 @@ function connect() {
             const questionNumber = JSON.parse(greeting.body).content;
             //move to the question. 
             localStorage.setItem('currentQuestion', questionNumber);
-            // window.location.replace(`/question.html`);
+            window.location.replace(`/question.html`);
         });
     });
 }
@@ -55,7 +55,7 @@ function sendAns(ans) {
         window.location.replace("/waiting.html");
     }
     else{
-        //say that the user has already voted.
+        //say that the user has already voted
         document.querySelector("h1").innerHTML = "<span style='color:red'>already VOTED</span>";
         setTimeout(() => { window.location.replace("/waiting.html") }, 1000);
     }

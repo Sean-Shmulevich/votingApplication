@@ -55,7 +55,7 @@ function sendAns(ans) {
         window.location.replace("/waiting.html");
     }
     else{
-        //say that the user has already voted.
+        //say that the user has already voted
         document.querySelector("h1").innerHTML = "<span style='color:red'>already VOTED</span>";
         setTimeout(() => { window.location.replace("/waiting.html") }, 1000);
     }
