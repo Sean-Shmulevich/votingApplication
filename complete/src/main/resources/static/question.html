@@ -79,7 +79,7 @@
             if(localStorage.getItem("currentTime") !== -1){
                 // set the local storate stuff and go to the current question.
                 localStorage.setItem('currentTime', q["questionNumber"]);
-                window.location.replace(`/question.html`);
+                // window.location.replace(`/question.html`);
             }
             console.log(localStorage.getItem("currentTime"));
             const seconds = localStorage.getItem("currentTime");
