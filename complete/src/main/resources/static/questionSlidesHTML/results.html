@@ -15,6 +15,7 @@
             transition-delay: 250ms;
         }
     </style>
+    <script src="/../js/admin.js"></script>
     <script type="text/javascript">
         window.addEventListener("load", function () {
             let qOption0 = sessionStorage.getItem("qOption0");
@@ -34,10 +35,12 @@
             //add a listenerr for the current name and question.
             $( "#send"+currQ ).click(function() { sendName(`${currQ}`); document.getElementById("send"+currQ).style.display = "none"; });
 
+            //set the the preview videos.
+
+
             sessionStorage.clear();
         });
     </script>
-    <script src="../js/admin.js"></script>
 </head>
 
 <body>
@@ -47,12 +50,28 @@
             Javascript and reload this page!</h2>
     </noscript>
     <div id="main-content" class="container">
+        <div id="ytbg" data-vbg-play-button="true" data-vbg-mute-button="true" data-vbg=""></div>
+        <div style="transform: translateY(100vh) !important;" id="ytbg2" data-vbg-play-button="true" data-vbg-mute-button="true" data-ytbg-fade-in="true" data-vbg=""></div>
+        <script type="text/javascript">
+            //makes the youtube videos into full backgrounds.
+            jQuery(document).ready(function () {
+                document.getElementById("ytbg").setAttribute('data-vbg',sessionStorage.getItem("qVideo0") );
+            document.getElementById("ytbg2").setAttribute('data-vbg', sessionStorage.getItem("qVideo1"));
+                jQuery('[data-vbg]').youtube_background({
+                    'muted':false,
+                    'autoplay':false,
+                    'loop':false
+                    //the commented code below will allow you to set a header image for the video. which will be a full screen page header image also.
+                    // 'poster':'/path/to/poster/image/',
+                });
+            });
+        </script>
         <div style="display:flex;flex-direction: column;">
             <a id="qOption0" href="askQ10.html">Go to next question. A</a>
             <a id="qOption1" href="askQ8.html">Go to next question. B</a>
         </div>
     </div>
-    <div class="row">
+    <div class="row" style="margin-top: 200vh;">
         <div class="col-md-12">
             <table id="conversation1" class="table table-striped">
                 <thead>
