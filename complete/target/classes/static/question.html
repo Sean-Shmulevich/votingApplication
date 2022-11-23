@@ -79,9 +79,10 @@
             if(localStorage.getItem("currentTime") !== -1){
                 // set the local storate stuff and go to the current question.
                 localStorage.setItem('currentTime', q["questionNumber"]);
+                //this line will break stuff
                 // window.location.replace(`/question.html`);
             }
-            console.log(localStorage.getItem("currentTime"));
+            // console.log(localStorage.getItem("currentTime"));
             const seconds = localStorage.getItem("currentTime");
             display = document.querySelector('#countdown');
             startTimer(seconds, display);

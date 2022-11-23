@@ -35,7 +35,7 @@
 
                 window.location.replace(`/question.html`);
             }
-            console.log(localStorage.getItem("connected"), typeof(localStorage.getItem("connected")));
+            // console.log(localStorage.getItem("connected"), typeof(localStorage.getItem("connected")));
             // if(localStorage.getItem("connected") === "false"){
             //     localStorage.setItem("connected", true);
             //     console.log("here");
