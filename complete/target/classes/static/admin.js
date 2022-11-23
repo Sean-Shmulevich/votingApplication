@@ -47,11 +47,12 @@ function disconnect() {
 function sendName(val) {
     numA = 0;
     numB = 0;
+    makePostCurrQ(val, 30);
     stompClient.send("/app/hello", {}, JSON.stringify({'name': val}));
 
     const yourFunction = async () => {
         //inital post requests
-        makePostCurrQ(val, 30);
+        
         // await setTimeout(() => { makePostCurrQ(val, 30); }, 5000);
         // ! kinda bad code here these should be removed when the button is clicked again.
         //sends 16x post requests per question asked to keep track of the time this should be done on the backend it would be way more clean and accurate

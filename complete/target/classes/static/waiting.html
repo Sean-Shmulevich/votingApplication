@@ -35,7 +35,7 @@
             if(currentTime !== -1 && localStorage.getItem(`user-voted-${q["content"]}`) !== "true"){
                 localStorage.setItem('currentQuestion', q["content"]);
                 localStorage.setItem('currentTime', q["questionNumber"]);
-                // window.location.reload();
+                window.location.reload();
 
                 window.location.replace(`/question.html`);
             }

@@ -76,12 +76,12 @@
             let q = await (await fetch("/getProjectNames")).json();
             localStorage.setItem('currentQuestion', q["content"]);
             localStorage.setItem('currentTime', q["questionNumber"]);
-            if(currentTime !== -1){
+            if(localStorage.getItem("currentTime") !== -1){
                 // set the local storate stuff and go to the current question.
-
+                localStorage.setItem('currentTime', 30);
                 window.location.replace(`/question.html`);
             }
-            // console.log(q);
+            console.log(localStorage.getItem("currentTime"));
             const seconds = localStorage.getItem("currentTime");
             display = document.querySelector('#countdown');
             startTimer(seconds, display);
