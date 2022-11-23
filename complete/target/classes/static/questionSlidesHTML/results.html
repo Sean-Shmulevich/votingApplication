@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Hello WebSocket</title>
+    <link href="/webjars/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/main.css" rel="stylesheet">
+    <script src="/webjars/jquery/jquery.min.js"></script>
+    <script src="/webjars/sockjs-client/sockjs.min.js"></script>
+    <script src="/webjars/stomp-websocket/stomp.min.js"></script>
+    <script type="text/javascript" src="https://unpkg.com/youtube-background/jquery.youtube-background.min.js"></script>
+    <script src="../js/admin.js"></script>
+    <style>
+        iframe {
+            transition: opacity 500ms ease-in-out;
+            transition-delay: 250ms;
+        }
+    </style>
+    <script type="text/javascript">
+        window.addEventListener("load", function () {
+            let qOption0 = sessionStorage.getItem("qOption0");
+            let qOption1 = sessionStorage.getItem("qOption1");
+            let currQ = sessionStorage.getItem("currQ");
+            console.log(qOption0);
+
+            document.getElementById("qOption0").href = qOption0;
+            document.getElementById("qOption1").href = qOption1;
+
+
+            document.querySelector("#conversation1 > thead > tr > th").innerHTML = "Responses question "+ currQ;
+            document.getElementById("conversation1").id = "send"+currQ;
+            document.getElementById("sendQuestion1").id = "send"+currQ;
+
+
+            sessionStorage.clear();
+        });
+    </script>
+</head>
+
+<body>
+    <noscript>
+        <h2 style="color: #ff0000">Seems your browser doesn't support Javascript! Websocket relies on Javascript being
+            enabled. Please enable
+            Javascript and reload this page!</h2>
+    </noscript>
+    <div id="main-content" class="container">
+        <div style="display:flex;flex-direction: column;">
+            <a id="qOption0" href="askQ10.html">Go to next question. A</a>
+            <a id="qOption1" href="askQ8.html">Go to next question. B</a>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <table id="conversation1" class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Responses question 1</th>
+                    </tr>
+                </thead>
+                <tbody id="sendQuestion1">
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+</body>
+
+</html>

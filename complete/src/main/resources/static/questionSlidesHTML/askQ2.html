@@ -8,11 +8,29 @@
     <script src="/webjars/sockjs-client/sockjs.min.js"></script>
     <script src="/webjars/stomp-websocket/stomp.min.js"></script>
     <script src="../js/admin.js"></script>
+    <script src="/setQ.js"></script>
+    <script>
+        //This specifies what direction the results screen will be able to go in. 
+        sessionStorage.setItem("qOption0", "askQ3.html");
+        sessionStorage.setItem("qOption1", "askQ4.html");
+    </script>
 </head>
 <body>
 <noscript><h2 style="color: #ff0000">Seems your browser doesn't support Javascript! Websocket relies on Javascript being
     enabled. Please enable
     Javascript and reload this page!</h2></noscript>
+    <div data-vbg-play-button="true" data-vbg-mute-button="true" data-vbg="https://www.youtube.com/watch?v=QNXvE1BZu8g"></div>
+    <script type="text/javascript">
+        jQuery(document).ready(function () {
+            jQuery('[data-vbg]').youtube_background({
+                'muted':false,
+                'autoplay':false,
+                'loop':false
+                //the commented code below will allow you to set a header image for the video. which will be a full screen page header image also.
+                // 'poster':'/path/to/poster/image/',
+            });
+        });
+    </script>
 <div id="main-content" class="container">
     <div class="row">
         <div class="col-md-6">
