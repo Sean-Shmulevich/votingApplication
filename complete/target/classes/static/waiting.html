@@ -22,7 +22,7 @@
                 localStorage.setItem('currentQuestion', q["content"]);
                 localStorage.setItem('currentTime', q["questionNumber"]);
 
-                // window.location.replace(`/question.html`);
+                window.location.replace(`/question.html`);
             }
             }
         };
@@ -31,14 +31,14 @@
         let q = await (await fetch("/getProjectNames")).json();
         localStorage.setItem('currentQuestion', q["content"]);
         localStorage.setItem('currentTime', q["questionNumber"]);
-            // let currentTime = q["questionNumber"];
-            // if(currentTime !== -1 && localStorage.getItem(`user-voted-${q["content"]}`) !== "true"){
-            //     localStorage.setItem('currentQuestion', q["content"]);
-            //     localStorage.setItem('currentTime', q["questionNumber"]);
-            //     window.location.reload();
+            let currentTime = q["questionNumber"];
+            if(currentTime !== -1 && localStorage.getItem(`user-voted-${q["content"]}`) !== "true"){
+                localStorage.setItem('currentQuestion', q["content"]);
+                localStorage.setItem('currentTime', q["questionNumber"]);
+                // window.location.reload();
 
-            //     // window.location.replace(`/question.html`);
-            // }
+                window.location.replace(`/question.html`);
+            }
             console.log(localStorage.getItem("connected"), typeof(localStorage.getItem("connected")));
             // if(localStorage.getItem("connected") === "false"){
             //     localStorage.setItem("connected", true);
