@@ -17,6 +17,7 @@ public class PollController {
 
 
 	@MessageMapping("/hello")
+	//send questions to active users
 	@SendTo("/topic/sendQuestion")
 	public Question greeting(Answer message) throws Exception {
 		//Thread.sleep(1000); // simulated delay
@@ -24,14 +25,18 @@ public class PollController {
 		return new Question(HtmlUtils.htmlEscape(message.getName()), message.getQuestionNumber());
 	}
 
+	//admin get responces from user responce for a question.
 	@MessageMapping("/userSend")
 	@SendTo("/topic/sendResponse")
 	public Question userAnswer(Answer message) throws Exception {
 		//Thread.sleep(1000); // simulated delay
 		return new Question(HtmlUtils.htmlEscape(message.getName()), message.getQuestionNumber());
 	}
+
+	//Stateful information
 	Question currQ = new Question("a",-1); 
 
+	//get currrent Q. 
     @GetMapping("/getProjectNames")
 	public Question loadQuest() throws Exception {
 		//!RLY BAD CODE 
@@ -39,6 +44,7 @@ public class PollController {
 		//and the naame is the number of the question.
 		return new Question(currQ.getContent(), currQ.getQuestionNumber());
 	}
+	//admin set current question and question time.
 	@PostMapping("/setQuestion")
 	public Question createEmployee(@RequestBody Answer message) throws Exception {
 		currQ = new Question(message.getName(), message.getQuestionNumber());
