@@ -24,7 +24,8 @@
 
             document.getElementById("qOption0").href = qOption0;
             document.getElementById("qOption1").href = qOption1;
-
+            document.getElementById("qOption0").innerHTML = "Go to next question "+qOption0;
+            document.getElementById("qOption1").innerHTML = "Go to next question "+qOption1;
 
             document.querySelector("#conversation1 > thead > tr > th").innerHTML = "Responses question "+ currQ;
             document.getElementById("conversation1").id = "conversation"+currQ;
