@@ -31,11 +31,11 @@
         let q = await (await fetch("/getProjectNames")).json();
             let currentTime = q["questionNumber"];
             if(currentTime !== -1 && localStorage.getItem(`user-voted-${q["content"]}`) !== "true"){
-                window.location.reload();
                 localStorage.setItem('currentQuestion', q["content"]);
                 localStorage.setItem('currentTime', q["questionNumber"]);
+                window.location.reload();
 
-                window.location.replace(`/question.html`);
+                // window.location.replace(`/question.html`);
             }
             console.log(localStorage.getItem("connected"), typeof(localStorage.getItem("connected")));
             // if(localStorage.getItem("connected") === "false"){
