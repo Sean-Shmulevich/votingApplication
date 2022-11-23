@@ -16,6 +16,7 @@ window.addEventListener('load', (async () => {
 
             //clear local storage when the user joins index.html after the first question has already been started. 
             // localStorage.clear();
+            // localStorage.setItem("gameStart", true);
             //reload window because then socket wont connect or something
             window.location.reload();
             localStorage.setItem('currentQuestion', q["content"]);
