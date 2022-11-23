@@ -13,6 +13,8 @@ window.addEventListener('load', (async () => {
         //if the current time in the currQ backend object is -1 then there is currently no question.
         if(currentTime !== -1){
             // set the local storate stuff and go to the current question.
+            localStorage.clear();
+            window.location.reload();
             localStorage.setItem('currentQuestion', q["content"]);
             localStorage.setItem('currentTime', q["questionNumber"]);
 
