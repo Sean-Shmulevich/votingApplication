@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Hello WebSocket</title>
+    <link href="/webjars/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/main.css" rel="stylesheet">
+    <script src="/webjars/jquery/jquery.min.js"></script>
+    <script src="/webjars/sockjs-client/sockjs.min.js"></script>
+    <script src="/webjars/stomp-websocket/stomp.min.js"></script>
+    <script src="/app.js"></script>
+    <script>
+        //this is the countdown timer function 
+        function startTimer(duration, display) {
+            var timer = duration, minutes, seconds;
+            setInterval(function () {
+                minutes = parseInt(timer / 60, 10);
+                seconds = parseInt(timer % 60, 10);
+        
+                minutes = minutes < 10 ? "0" + minutes : minutes;
+                seconds = seconds < 10 ? "0" + seconds : seconds;
+        
+                display.textContent = minutes + ":" + seconds;
+        
+                if (--timer < 0) {
+                    window.location.replace("/waiting.html");
+                    timer = duration;
+                }
+            }, 1000);
+        }
+
+        //this maps the text content to the specific question sent by the admin. 
+        function setQuestionText(){
+            let questionMap = {};
+            questionMap['q1'] = "This is what the question says for question number 1";
+            questionMap['q2'] = "This is what the question says for question number 2";
+            questionMap['q3'] = "This is what the question says for question number 3";
+            questionMap['q4'] = "This is what the question says for question number 4";
+            questionMap['q5'] = "This is what the question says for question number 5";
+            questionMap['q6'] = "This is what the question says for question number 6";
+            questionMap['q7'] = "This is what the question says for question number 7";
+            questionMap['q8'] = "This is what the question says for question number 8";
+            questionMap['q9'] = "This is what the question says for question number 9";
+            questionMap['q10'] = "This is what the question says for question number 10";
+
+            //using the map allows me to avoid a super long if statement
+            //using an array would work too because this map is basically like an array but it starts at 1 which would be less clear in the code i think.
+            document.querySelector("#questionText").innerHTML = questionMap[`q${localStorage.getItem('currentQuestion')}`]
+        }
+        function setQuestionTitle(){
+            let pageTitle = document.querySelector('h1');
+            let questionNumber = localStorage.getItem('currentQuestion');
+            pageTitle.innerHTML = `Question number ${questionNumber}`;
+        }
+
+        //helper function for setting different stuff for each question.
+        //@param pageProperty - the DOM element and its property you would like to change for example:
+            //document.getElementById("imageid").src="../template/save.png";
+            //document.querySelector("#imageid").src="https://i.picsum.photos/id/167/200/300.jpg?hmac=ZAuGlRPlSv0i_JnJr4FFW-OPsVz5bTx8mAI_qUYP_bM";
+            //document.querySelector("#imageid").innerHTML="<a>Hello World</a>";
+        //@param qMediaArr - is a list of 10 strings. 
+        function setAnything(pageProperty, qMediaArr){
+
+            let element = document.querySelector(`#${elementId}`);
+            let arrPos = localStorage.getItem('currentQuestion') - 1;
+            
+            //if you wanted to set the src of an image you would not user innerHTML.
+            pageProperty = qMediaArr[arrPos];
+        }
+        
+        window.onload = function () {
+            setQuestionTitle();
+            setQuestionText();
+
+            const seconds = localStorage.getItem("currentTime");
+            display = document.querySelector('#countdown');
+            startTimer(seconds, display);
+            // var path = window.location.pathname;
+            // var page = path.split("/").pop();
+            // console.log( page );
+        };
+    </script>
+</head>
+<body>
+<noscript><h2 style="color: #ff0000">Seems your browser doesn't support Javascript! Websocket relies on Javascript being
+    enabled. Please enable
+    Javascript and reload this page!</h2></noscript>
+    <h1 id="questionTitle" style="width:100%; margin-left:25%">Question</h1>
+    <span id="countdown" style="font-size: 3rem;width: 100%; margin-left:25%">00:30</span>
+    <p id="questionText" style="width:100%; margin-left:25%"></p>
+<div id="main-content" class="container">
+    <div class="row">
+        <div class="col-md-6">
+            <form class="form-inline">
+                <!-- <div class="form-group">
+                    <label for="name">Enter your vote</label>
+                    <input type="text" id="name" class="form-control" placeholder="Your name here...">
+                </div> -->
+                <button id="sendA" class="btn btn-default" type="submit">Pick answer A</button>
+                <button id="sendB" class="btn btn-default" type="submit">Pick answer B</button>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>
