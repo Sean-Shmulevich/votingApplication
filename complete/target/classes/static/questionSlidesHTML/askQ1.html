@@ -7,14 +7,26 @@
     <script src="/webjars/jquery/jquery.min.js"></script>
     <script src="/webjars/sockjs-client/sockjs.min.js"></script>
     <script src="/webjars/stomp-websocket/stomp.min.js"></script>
+    <script type="text/javascript" src="https://unpkg.com/youtube-background/jquery.youtube-background.min.js"></script>
     <script src="../js/admin.js"></script>
     <script src="/playvideo.js"></script>
+    <style>
+        		iframe {
+			transition: opacity 500ms ease-in-out;
+			transition-delay: 250ms;
+		}
+    </style>
 </head>
 <body>
 <noscript><h2 style="color: #ff0000">Seems your browser doesn't support Javascript! Websocket relies on Javascript being
     enabled. Please enable
     Javascript and reload this page!</h2></noscript>
-    <iframe style="margin-left:50%" id="player2" width="560" height="315" src="https://www.youtube.com/embed/cs1e0fRyI18" frameborder="0" allowfullscreen></iframe>
+    <div data-vbg-autoplay="true" data-vbg="https://www.youtube.com/watch?v=eEpEeyqGlxA"></div>
+    <script type="text/javascript">
+        jQuery(document).ready(function() {
+            jQuery('[data-vbg]').youtube_background();
+        });
+    </script>
 <div id="main-content" class="container">
     <div class="row">
         <div class="col-md-6">
