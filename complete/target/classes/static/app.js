@@ -30,7 +30,7 @@ function connect() {
             const questionNumber = JSON.parse(greeting.body).content;
             //move to the question. 
             localStorage.setItem('currentQuestion', questionNumber);
-            window.location.replace(`/question.html`);
+            // window.location.replace(`/question.html`);
         });
     });
 }
