@@ -1,2 +1,5 @@
 com/example/messagingstompwebsocket/MessagingStompWebsocketApplication.class
+com/example/messagingstompwebsocket/Answer.class
+com/example/messagingstompwebsocket/PollController.class
+com/example/messagingstompwebsocket/Question.class
 com/example/messagingstompwebsocket/WebSocketConfig.class

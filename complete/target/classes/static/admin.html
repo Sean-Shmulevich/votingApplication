@@ -8,6 +8,18 @@
     <script src="/webjars/sockjs-client/sockjs.min.js"></script>
     <script src="/webjars/stomp-websocket/stomp.min.js"></script>
     <script src="js/admin.js"></script>
+    <script>
+        window.addEventListener('load', () => {
+            if(localStorage.getItem("adminUser") !== "true"){
+                //destroy all the data in the body.
+                document.querySelector('body').innerHTML = '';
+                notAuth = document.createElement("h1");
+                notAuthText = document.createTextNode("you are not the admin");
+                notAuth.appendChild(notAuthText);
+                document.querySelector('body').appendChild(notAuth);
+            }
+        });
+    </script>
 </head>
 <body>
 <noscript><h2 style="color: #ff0000">Seems your browser doesn't support Javascript! Websocket relies on Javascript being

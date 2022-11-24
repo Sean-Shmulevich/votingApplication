@@ -140,7 +140,7 @@ $(function () {
     // to add more just add here and in the admin .html add another secuential ID.
     let path = window.location.pathname;
     let page = path.split("/").pop();
-    if(page !== "results.html"){
+    if(page !== "results.html" && localStorage.getItem("adminUser") === "true"){
         $( "#send1" ).click(function() { sendName("1"); });
         $( "#send2" ).click(function() { sendName("2"); });
         $( "#send3" ).click(function() { sendName("3"); });

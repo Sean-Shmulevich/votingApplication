@@ -34,6 +34,7 @@
             document.getElementById("send1").id = "send"+currQ;
             //add a listenerr for the current name and question.
             $( "#send"+currQ ).click(function() { sendName(`${currQ}`); document.getElementById("send"+currQ).style.display = "none"; });
+            //this code allows for the parmeters to the next question to be passed in by clearing the sessionStorage of the admin.
             $( "#qOption0" ).click(function() { sessionStorage.clear(); });
             $( "#qOption1" ).click(function() { sessionStorage.clear(); });
             //set the the preview videos.
