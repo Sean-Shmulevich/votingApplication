@@ -18,6 +18,17 @@
     <script src="/../js/admin.js"></script>
     <script type="text/javascript">
         window.addEventListener("load", function () {
+            //Does not show the page if the current user is not the admin.
+            if(localStorage.getItem("adminUser") !== "true"){
+                //destroy all the data in the body.
+                document.querySelector('body').innerHTML = '';
+                notAuth = document.createElement("h1");
+                notAuthText = document.createTextNode("you are not the admin");
+                notAuth.appendChild(notAuthText);
+                document.querySelector('body').appendChild(notAuth);
+            }
+
+            //fill in the input parameters from the question that called the results page. 
             let qOption0 = sessionStorage.getItem("qOption0");
             let qOption1 = sessionStorage.getItem("qOption1");
             let currQ = sessionStorage.getItem("currQ");
