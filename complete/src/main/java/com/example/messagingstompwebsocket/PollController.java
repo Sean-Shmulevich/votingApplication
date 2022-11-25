@@ -44,6 +44,7 @@ public class PollController {
 
 	//Stateful information
 	Question currQ = new Question("a",-1); 
+	long qSentTime = -1;
 
 	//get currrent Q. 
     @GetMapping("/getProjectNames")
@@ -51,21 +52,31 @@ public class PollController {
 		//!RLY BAD CODE 
 		//question number is the time remaining in this case
 		//and the naame is the number of the question.
-		return new Question(currQ.getContent(), currQ.getQuestionNumber());
+		int timeSinceQuestionSent;
+		if(qSentTime == -1){
+			timeSinceQuestionSent = -1;
+		}
+		else{
+			timeSinceQuestionSent = (int)(30 - ((System.currentTimeMillis() - qSentTime)/1000));
+		}
+		return new Question(currQ.getContent(), timeSinceQuestionSent);
 	}
 	//admin set current question and question time.
 	@PostMapping("/setQuestion")
 	public Question createEmployee(@RequestBody Answer message) throws Exception {
 		currQ = new Question(message.getName(), message.getQuestionNumber());
+
+		//only send the qTime if the time sent is 30 seconds since that is the initial post.
+		if(message.getQuestionNumber() == 30){
+			qSentTime = System.currentTimeMillis();
+		}
+		else if(message.getQuestionNumber() == -1){
+			qSentTime = -1;
+		}
 		// System.out.println(message.getName());
 		return new Question(HtmlUtils.htmlEscape(message.getName()), message.getQuestionNumber());
 	}
 
 	//make a web socket for the results page to get the answers in real time. 
-
-	@RequestMapping(value = "/staticPage", method = RequestMethod.GET)
-	public String redirect() {
-		return "redirect:/admin.html";
-	}
 
 }

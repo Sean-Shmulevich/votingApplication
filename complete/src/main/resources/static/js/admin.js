@@ -56,6 +56,13 @@ function connect() {
             }
             console.log(greeting.body);
         });
+        stompClient.subscribe('/topic/sendQuestion', function (greeting) {
+            let seconds = 30;
+            display = document.querySelector('#countdown');
+            if(display){
+                startTimer(seconds, display);
+            }
+        });
     });
 }
 
@@ -67,9 +74,30 @@ function disconnect() {
     console.log("Disconnected");
 }
 
+
+function startTimer(duration, display) {
+    var timer = duration, minutes, seconds;
+    setInterval(function () {
+        minutes = parseInt(timer / 60, 10);
+        seconds = parseInt(timer % 60, 10);
+
+        minutes = minutes < 10 ? "0" + minutes : minutes;
+        seconds = seconds < 10 ? "0" + seconds : seconds;
+
+        display.textContent = minutes + ":" + seconds;
+
+        if (--timer < 0) {
+            window.location.replace("/waiting.html");
+            timer = duration;
+        }
+    }, 1000);
+}
+
+let questionStarted = false;
 function sendName(val) {
     numA = 0;
     numB = 0;
+    //send the initial value to the server.
     makePostCurrQ(val, 30);
     stompClient.send("/app/hello", {}, JSON.stringify({'name': val}));
 
@@ -80,21 +108,9 @@ function sendName(val) {
         // ! kinda bad code here these should be removed when the button is clicked again.
         //sends 16x post requests per question asked to keep track of the time this should be done on the backend it would be way more clean and accurate
         //DONT try to send another question before 30 seconds is done. 
-        await setTimeout(() => { makePostCurrQ(val, 28); }, 2000);
-        await setTimeout(() => { makePostCurrQ(val, 26); }, 4000);
-        await setTimeout(() => { makePostCurrQ(val, 24); }, 6000);
-        await setTimeout(() => { makePostCurrQ(val, 22); }, 8000);
-        await setTimeout(() => { makePostCurrQ(val, 20); }, 10000);
-        await setTimeout(() => { makePostCurrQ(val, 18); }, 12000);
-        await setTimeout(() => { makePostCurrQ(val, 16); }, 14000);
-        await setTimeout(() => { makePostCurrQ(val, 14); }, 16000);
-        await setTimeout(() => { makePostCurrQ(val, 12); }, 18000);
-        await setTimeout(() => { makePostCurrQ(val, 10); }, 20000);
-        await setTimeout(() => { makePostCurrQ(val, 8); }, 22000);
-        await setTimeout(() => { makePostCurrQ(val, 6); }, 24000);
-        await setTimeout(() => { makePostCurrQ(val, 4); }, 26000);
-        await setTimeout(() => { makePostCurrQ(val, 2); }, 28000);
-        await setTimeout(() => { makePostCurrQ(val, -1); }, 30000);
+        //after 30 seconds send this object to the backend to signify to the backend that there is no current question
+        questionStarted = true;
+        await setTimeout(() => { makePostCurrQ(val, -1); questionStarted = false; }, 30000);
       };
       yourFunction();
 
