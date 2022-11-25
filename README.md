@@ -1,4 +1,8 @@
-# votingApplication
+# websocket votingApplication for film project 
+this app has a user facing end and an an admin end
+the user end simply recieves questions from the admin and is able to vote on them
+the admin side is able to send questions and also has html pages that allow the admin to present
+the potential options for the story direction pick that option and show the result story on the next page. from there the admin can ask another question and continue the story.
 web-socket voting application 
 
 ## Backend Files
@@ -61,5 +65,6 @@ is currently no question in play
   - does not show if user is not the admin user. sets very important html id's and properties in order to properly make admin.js work and send the question/show the right graph from the results page.
 - Note when the slides are loaded the parameters to the result page get loaded in then when results.html loads that information is loaded into the page with basic DOM manipultion of id, href, innerHTML, and data-vbg.
 - Note i am using a library for full screen youtube backgrounds https://github.com/stamat/youtube-background
+- Note overall 100 users 100 websocket connections. 10 questions 1000 posts over 1 hour over websocket. for each question asked there is maximum 3x get requests to the server. 3req x 10q * 100 users 3000 requests. this could be an issue but they are just simple get requests sooo idk.
  
   
