@@ -22,23 +22,23 @@
             }
             }
         };
-        // window.addEventListener('load', (async () => {
-        // //on load check if there is a question I dont know if this code is necessary because you only ever get to waiting from a question and i dont want to do extra fetches
-        // let q = await (await fetch("/getProjectNames")).json();
-        // localStorage.setItem('currentQuestion', q["content"]);
-        // localStorage.setItem('currentTime', q["questionNumber"]);
-        //     let currentTime = q["questionNumber"];
-        //     if(currentTime !== -1 && localStorage.getItem(`user-voted-${q["content"]}`) !== "true"){
-        //         localStorage.setItem('currentQuestion', q["content"]);
-        //         localStorage.setItem('currentTime', q["questionNumber"]);
-        //         window.location.reload();
+        window.addEventListener('load', (async () => {
+        //on load check if there is a question I dont know if this code is necessary because you only ever get to waiting from a question and i dont want to do extra fetches
+        let q = await (await fetch("/getProjectNames")).json();
+        localStorage.setItem('currentQuestion', q["content"]);
+        localStorage.setItem('currentTime', q["questionNumber"]);
+            let currentTime = q["questionNumber"];
+            if(currentTime !== -1 && localStorage.getItem(`user-voted-${q["content"]}`) !== "true"){
+                localStorage.setItem('currentQuestion', q["content"]);
+                localStorage.setItem('currentTime', q["questionNumber"]);
+                window.location.reload();
 
-        //         window.location.replace(`/question.html`);
-        //     }
-        //     // console.log(localStorage.getItem("connected"), typeof(localStorage.getItem("connected")));
-        //     // if(localStorage.getItem("connected") === "false"){
-        //     //     localStorage.setItem("connected", true);
-        //     //     console.log("here");
-        //     //     window.location.reload();
-        //     // }
-        // }));
+                window.location.replace(`/question.html`);
+            }
+            // console.log(localStorage.getItem("connected"), typeof(localStorage.getItem("connected")));
+            // if(localStorage.getItem("connected") === "false"){
+            //     localStorage.setItem("connected", true);
+            //     console.log("here");
+            //     window.location.reload();
+            // }
+        }));
