@@ -34,27 +34,28 @@ function connect() {
             showGraph(JSON.parse(greeting.body));
         });
 
-            stompClient.subscribe('/topic/slide', function (greeting) {
-                // the clients page should change when this is recieved.
-                // client button is also a socket to the server side. 
-                // numA = 0;
-                // numB = 0;
-                // console.log(JSON.parse(greeting.body).content);
-                let path = window.location.pathname;
-                let page = path.split("/").pop();
-                if(page !== "admin.html"){
-                    if(JSON.parse(greeting.body).content === "goPreview"){
-                        window.location.replace("preview.html");
-                    }
-                    else if(JSON.parse(greeting.body).content === "goVoting"){
-                        window.location.replace("voting.html");
-                    }
-                    else{
-                        window.location.replace(JSON.parse(greeting.body).content);
-                    } 
+        //web socket for listening to changes to the presenting screen.
+        stompClient.subscribe('/topic/slide', function (greeting) {
+            // the clients page should change when this is recieved.
+            // client button is also a socket to the server side. 
+            // numA = 0;
+            // numB = 0;
+            // console.log(JSON.parse(greeting.body).content);
+            let path = window.location.pathname;
+            let page = path.split("/").pop();
+            if(page !== "admin.html"){
+                if(JSON.parse(greeting.body).content === "goPreview"){
+                    window.location.replace("preview.html");
                 }
-                console.log(greeting.body);
-            });
+                else if(JSON.parse(greeting.body).content === "goVoting"){
+                    window.location.replace("voting.html");
+                }
+                else{
+                    window.location.replace(JSON.parse(greeting.body).content);
+                } 
+            }
+            console.log(greeting.body);
+        });
     });
 }
 

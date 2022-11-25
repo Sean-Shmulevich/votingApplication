@@ -33,7 +33,8 @@ public class PollController {
 		return new Question(HtmlUtils.htmlEscape(message.getName()), message.getQuestionNumber());
 	}
 
-	//admin get responces from user responce for a question.
+	//admin get responces from user response for a question.
+	//control the presenting screen from the admin panel page.
 	@MessageMapping("/changeScreen")
 	@SendTo("/topic/slide")
 	public Question changeScreen(Answer message) throws Exception {
