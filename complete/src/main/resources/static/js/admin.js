@@ -87,7 +87,6 @@ function startTimer(duration, display) {
         display.textContent = minutes + ":" + seconds;
 
         if (--timer < 0) {
-            window.location.replace("/waiting.html");
             timer = duration;
         }
     }, 1000);
