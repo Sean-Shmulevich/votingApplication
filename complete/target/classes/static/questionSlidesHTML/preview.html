@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Hello WebSocket</title>
+    <link href="/webjars/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/main.css" rel="stylesheet">
+    <script src="/webjars/jquery/jquery.min.js"></script>
+    <script src="/webjars/sockjs-client/sockjs.min.js"></script>
+    <script src="/webjars/stomp-websocket/stomp.min.js"></script>
+    <script type="text/javascript" src="https://unpkg.com/youtube-background/jquery.youtube-background.min.js"></script>
+    <style>
+        iframe {
+            transition: opacity 500ms ease-in-out;
+            transition-delay: 250ms;
+        }
+    </style>
+    <script src="/../js/admin.js"></script>
+    <script>
+        document.onkeyup = function(e) {
+            if (e.which == 77) {
+                //M key was pressed. 
+                document.getElementById("goVoting").click();
+            }
+        };
+    </script>
+</head>
+
+<body>
+    <noscript>
+        <h2 style="color: #ff0000">Seems your browser doesn't support Javascript! Websocket relies on Javascript being
+            enabled. Please enable
+            Javascript and reload this page!</h2>
+    </noscript>
+    <div id="main-content" class="container">
+        <div id="ytbg" data-vbg-play-button="true" data-vbg-mute-button="true" data-vbg=""></div>
+        <div style="transform: translateY(100vh) !important;" id="ytbg2" data-vbg-play-button="true" data-vbg-mute-button="true" data-ytbg-fade-in="true" data-vbg=""></div>
+        <script type="text/javascript">
+            //makes the youtube videos into full backgrounds.
+            jQuery(document).ready(function () {
+                document.getElementById("ytbg").setAttribute('data-vbg',sessionStorage.getItem("qVideo0") );
+            document.getElementById("ytbg2").setAttribute('data-vbg', sessionStorage.getItem("qVideo1"));
+                jQuery('[data-vbg]').youtube_background({
+                    'muted':false,
+                    'autoplay':false,
+                    'loop':false
+                    //the commented code below will allow you to set a header image for the video. which will be a full screen page header image also.
+                    // 'poster':'/path/to/poster/image/',
+                });
+            });
+        </script>
+    </div>
+    <div class="row" style="margin-top: 200vh;">
+        <div style="display:flex;flex-direction: column;">
+            <a id="goVoting" href="voting.html">Go to Graph</a>
+        </div>
+        <!-- <div class="col-md-12">
+            <table id="conversation1" class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Responses question 1</th>
+                    </tr>
+                </thead>
+                <tbody id="sendQuestion1">
+                    <tr><td>
+                        <svg width="350" height="300" viewBox="0 0 350 300"xmlns="http://www.w3.org/2000/svg">
+                            <line x1="20" y1="250" x2="330" y2="250" stroke="black" />
+                            <text x="80" y="285" style="font: bold 30px Verdana,Geneva,sans-serif; ">A</text>
+                            <text x="250" y="285" style="font: bold 30px Verdana,Geneva,sans-serif; ">B</text>
+                    
+                            
+                            <rect x="41" y="227" width="100" height="21" style="fill:rgb(0,0,255);stroke-width:3;stroke:rgb(0,0,0)" />
+                            <rect x="211" y="227" width="100" height="21" style="fill:rgb(255,0,0);stroke-width:3;stroke:rgb(0,0,0)" />
+                    
+                            <text x="80" y="246" style="fill:white;font: bold 25px Verdana,Geneva,sans-serif; ">0</text>
+                            <text x="250" y="246" style="fill:white;font: bold 25px Verdana,Geneva,sans-serif; ">0</text>
+                        </svg>
+                    </td></tr>
+                </tbody>
+            </table>
+            <form class="form-inline">
+                <button id="send1" class="btn btn-default" type="submit">sendQ</button>
+            </form>
+        </div> -->
+    </div>
+</body>
+
+</html>

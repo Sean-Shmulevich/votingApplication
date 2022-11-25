@@ -33,6 +33,14 @@ public class PollController {
 		return new Question(HtmlUtils.htmlEscape(message.getName()), message.getQuestionNumber());
 	}
 
+	//admin get responces from user responce for a question.
+	@MessageMapping("/changeScreen")
+	@SendTo("/topic/slide")
+	public Question changeScreen(Answer message) throws Exception {
+		//Thread.sleep(1000); // simulated delay
+		return new Question(HtmlUtils.htmlEscape(message.getName()), message.getQuestionNumber());
+	}
+
 	//Stateful information
 	Question currQ = new Question("a",-1); 
 

@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Hello WebSocket</title>
+    <link href="/webjars/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/main.css" rel="stylesheet">
+    <script src="/webjars/jquery/jquery.min.js"></script>
+    <script src="/webjars/sockjs-client/sockjs.min.js"></script>
+    <script src="/webjars/stomp-websocket/stomp.min.js"></script>
+    <script src="/../js/admin.js"></script>
+    <script type="text/javascript">
+        window.addEventListener("load", function () {
+            //Does not show the page if the current user is not the admin.
+            if(localStorage.getItem("adminUser") !== "true"){
+                //destroy all the data in the body.
+                document.querySelector('body').innerHTML = '';
+                notAuth = document.createElement("h1");
+                notAuthText = document.createTextNode("you are not the admin");
+                notAuth.appendChild(notAuthText);
+                document.querySelector('body').appendChild(notAuth);
+            }
+
+            //fill in the input parameters from the question that called the results page. 
+            let qOption0 = sessionStorage.getItem("qOption0");
+            let qOption1 = sessionStorage.getItem("qOption1");
+            let currQ = sessionStorage.getItem("currQ");
+
+            document.getElementById("qOption0").href = qOption0;
+            document.getElementById("qOption1").href = qOption1;
+            document.getElementById("qOption0").innerHTML = "Go to next question "+qOption0;
+            document.getElementById("qOption1").innerHTML = "Go to next question "+qOption1;
+
+            document.querySelector("#conversation1 > thead > tr > th").innerHTML = "Responses question "+ currQ;
+            document.getElementById("conversation1").id = "conversation"+currQ;
+            document.getElementById("sendQuestion1").id = "sendQuestion"+currQ;
+            document.getElementById("send1").id = "send"+currQ;
+            //add a listenerr for the current name and question.
+            $( "#send"+currQ ).click(function() { sendName(`${currQ}`); document.getElementById("send"+currQ).style.display = "none"; });
+            $( "#qOption0" ).click(function() { sessionStorage.clear(); });
+            $( "#qOption1" ).click(function() { sessionStorage.clear(); });
+            //set the the preview videos.
+
+            document.onkeyup = function(e) {
+                if (e.which == 77) {
+                    document.getElementById("send"+currQ).style.display
+                }
+            };
+
+        });
+    </script>
+</head>
+
+<body>
+    <noscript>
+        <h2 style="color: #ff0000">Seems your browser doesn't support Javascript! Websocket relies on Javascript being
+            enabled. Please enable
+            Javascript and reload this page!</h2>
+    </noscript>
+    <div class="row">
+        <div style="display:flex;flex-direction: column;">
+            <a id="qOption0" href="askQ10.html">Go to next question. A</a>
+            <a id="qOption1" href="askQ8.html">Go to next question. B</a>
+        </div>
+        <div class="col-md-12">
+            <table id="conversation1" class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Responses question 1</th>
+                    </tr>
+                </thead>
+                <tbody id="sendQuestion1">
+                    <tr><td>
+                        <svg width="350" height="300" viewBox="0 0 350 300"xmlns="http://www.w3.org/2000/svg">
+                            <line x1="20" y1="250" x2="330" y2="250" stroke="black" />
+                            <text x="80" y="285" style="font: bold 30px Verdana,Geneva,sans-serif; ">A</text>
+                            <text x="250" y="285" style="font: bold 30px Verdana,Geneva,sans-serif; ">B</text>
+                    
+                            
+                            <rect x="41" y="227" width="100" height="21" style="fill:rgb(0,0,255);stroke-width:3;stroke:rgb(0,0,0)" />
+                            <rect x="211" y="227" width="100" height="21" style="fill:rgb(255,0,0);stroke-width:3;stroke:rgb(0,0,0)" />
+                    
+                            <text x="80" y="246" style="fill:white;font: bold 25px Verdana,Geneva,sans-serif; ">0</text>
+                            <text x="250" y="246" style="fill:white;font: bold 25px Verdana,Geneva,sans-serif; ">0</text>
+                        </svg>
+                    </td></tr>
+                </tbody>
+            </table>
+            <form class="form-inline">
+                <button id="send1" class="btn btn-default" type="submit">sendQ</button>
+            </form>
+        </div>
+    </div>
+</body>
+
+</html>

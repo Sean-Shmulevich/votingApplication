@@ -33,6 +33,28 @@ function connect() {
             // console.log(JSON.parse(greeting.body).content);
             showGraph(JSON.parse(greeting.body));
         });
+
+            stompClient.subscribe('/topic/slide', function (greeting) {
+                // the clients page should change when this is recieved.
+                // client button is also a socket to the server side. 
+                // numA = 0;
+                // numB = 0;
+                // console.log(JSON.parse(greeting.body).content);
+                let path = window.location.pathname;
+                let page = path.split("/").pop();
+                if(page !== "admin.html"){
+                    if(JSON.parse(greeting.body).content === "goPreview"){
+                        window.location.replace("preview.html");
+                    }
+                    else if(JSON.parse(greeting.body).content === "goVoting"){
+                        window.location.replace("voting.html");
+                    }
+                    else{
+                        window.location.replace(JSON.parse(greeting.body).content);
+                    } 
+                }
+                console.log(greeting.body);
+            });
     });
 }
 
@@ -140,7 +162,7 @@ $(function () {
     // to add more just add here and in the admin .html add another secuential ID.
     let path = window.location.pathname;
     let page = path.split("/").pop();
-    if(page !== "results.html" && localStorage.getItem("adminUser") === "true"){
+    if(page !== "voting.html" && localStorage.getItem("adminUser") === "true"){
         $( "#send1" ).click(function() { sendName("1"); });
         $( "#send2" ).click(function() { sendName("2"); });
         $( "#send3" ).click(function() { sendName("3"); });
@@ -150,7 +172,21 @@ $(function () {
         $( "#send7" ).click(function() { sendName("7"); });
         $( "#send8" ).click(function() { sendName("8"); });
         $( "#send9" ).click(function() { sendName("9"); });
-        $( "#send10" ).click(function() { sendName("10"); });
+        $( "#send10" ).click(function() { sendName("10");});
+
+        $( "#slide1" ).click(function() { stompClient.send("/app/changeScreen", {}, JSON.stringify({'name': "askQ1.html"})); });
+        $( "#slide2" ).click(function() { stompClient.send("/app/changeScreen", {}, JSON.stringify({'name': "askQ2.html"})); });
+        $( "#slide3" ).click(function() { stompClient.send("/app/changeScreen", {}, JSON.stringify({'name': "askQ3.html"})); });
+        $( "#slide4" ).click(function() { stompClient.send("/app/changeScreen", {}, JSON.stringify({'name': "askQ4.html"})); });
+        $( "#slide5" ).click(function() { stompClient.send("/app/changeScreen", {}, JSON.stringify({'name': "askQ5.html"})); });
+        $( "#slide6" ).click(function() { stompClient.send("/app/changeScreen", {}, JSON.stringify({'name': "askQ6.html"})); });
+        $( "#slide7" ).click(function() { stompClient.send("/app/changeScreen", {}, JSON.stringify({'name': "askQ7.html"})); });
+        $( "#slide8" ).click(function() { stompClient.send("/app/changeScreen", {}, JSON.stringify({'name': "askQ8.html"})); });
+        $( "#slide9" ).click(function() { stompClient.send("/app/changeScreen", {}, JSON.stringify({'name': "askQ9.html"})); });
+        $( "#slide10" ).click(function() { stompClient.send("/app/changeScreen", {}, JSON.stringify({'name': "askQ10.html"})); });
+
+        $( "#goQPreview" ).click(function() { stompClient.send("/app/changeScreen", {}, JSON.stringify({'name': "goPreview"})); });
+        $( "#goVoting" ).click(function() { stompClient.send("/app/changeScreen", {}, JSON.stringify({'name': "goVoting"})); });
     }
 
 });
