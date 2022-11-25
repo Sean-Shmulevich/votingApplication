@@ -57,6 +57,7 @@ public class PollController {
 			timeSinceQuestionSent = -1;
 		}
 		else{
+			//30 - (currentTime - questionStartTime)/1000 converted to int seconds.
 			timeSinceQuestionSent = (int)(30 - ((System.currentTimeMillis() - qSentTime)/1000));
 		}
 		return new Question(currQ.getContent(), timeSinceQuestionSent);
