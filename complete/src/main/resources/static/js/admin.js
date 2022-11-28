@@ -56,6 +56,7 @@ function connect() {
             }
             console.log(greeting.body);
         });
+        //when the admin panel sends the question the time will start.
         stompClient.subscribe('/topic/sendQuestion', function (greeting) {
             let seconds = 30;
             display = document.querySelector('#countdown');
@@ -88,6 +89,7 @@ function startTimer(duration, display) {
 
         if (--timer < 0) {
             timer = duration;
+            display.style.display = "none";
         }
     }, 1000);
 }
